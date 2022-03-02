@@ -7,7 +7,7 @@ const cors = require("cors");
 
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
-const reservationsRouter = require("./reservations/reservations.router");
+const reservationsRouter = require("./routes/reservations/reservations.router");
 
 const app = express();
 
