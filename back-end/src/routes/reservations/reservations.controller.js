@@ -8,6 +8,18 @@ async function list(req, res) {
   res.json({ data });
 }
 
+async function read(req, res) {
+  const { reservationId } = req.params
+  const data = await service.read(reservationId)
+  res.json({ data })
+}
+
+async function create(req, res) {
+  const newReservation = req.body
+  const data = await service.create(newReservation)
+  res.status(201).json({ data })
+}
 module.exports = {
   list,
+  create
 };

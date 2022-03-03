@@ -15,23 +15,16 @@ function Dashboard({ date }) {
   const history = useHistory()
   // declare states and errors
   const [reservations, setReservations] = useState([]);
-  const [viewDate, setViewDate] = useState({date})
   const [error, setError] = useState(null);
 
-  // get date from url if present
-  const dateURL = useQuery().get("date");
-  if (dateURL) {
-    setViewDate(dateURL)
-  }
-
-  // run loadDashboard each time the viewDate changes
-  useEffect(loadDashboard, [setViewDate]);
+  // run loadDashboard every time the date changes
+  useEffect(loadDashboard, [date]);
 
   function loadDashboard() {
     const controller = new AbortController();
 
     setError(null);
-    listReservations(viewDate, controller.signal)
+    listReservations({date}, controller.signal)
       .then(setReservations)
       .catch(setError);
 
@@ -39,14 +32,7 @@ function Dashboard({ date }) {
   }
 
   // handle button clicks
-  const handleClick = (target) => {
-    if (target.name === "prev") {
-      date = previous(date)
-    } else if (target.name === "next") {
-        date = next(date)
-    } else { date = today() }
-    setViewDate({date})
-    console.log(viewDate)
+  const handleClick = () => {
     history.push(`/dashboard?date=${date}`)
   }
 
@@ -62,9 +48,9 @@ function Dashboard({ date }) {
       </div>
       <ErrorAlert error={error} />
       <p>{reservations ? JSON.stringify(reservations) : "loading"}</p>
-      <button name="prev" className="btn" onClick={handleClick}>Previous Day</button>
-      <button name="today" className="btn" onClick={handleClick}>Today</button>
-      <button name="next" className="btn" onClick={handleClick}>Next Day</button>
+      <button name="prev" className="btn">Previous Day</button>
+      <button name="today" className="btn" >Today</button>
+      <button name="next" className="btn">Next Day</button>
     </main>
   );
 }
