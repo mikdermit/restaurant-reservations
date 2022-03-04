@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import Dashboard from "../dashboard/Dashboard";
-import NotFound from "./NotFound";
+import { listReservations } from "../utils/api";
 import { today } from "../utils/date-time";
 import useQuery from "../utils/useQuery"
-import ReservationForm from "../reservations/ReservationForm"
+import ErrorAlert from "../layout/ErrorAlert";
+import NotFound from "./NotFound";
+import Dashboard from "../dashboard/Dashboard";
+import CreateReservation from "../reservations/CreateReservation"
+import EditReservation from "../reservations/EditReservation"
 
 /**
  * Defines all the routes for the application.
@@ -14,14 +17,26 @@ import ReservationForm from "../reservations/ReservationForm"
  * @returns {JSX.Element}
  */
 function Routes() {
-  let date;
   const dateURL = useQuery().get("date");
-  if (dateURL) {
-    date = dateURL
-  } else {
-    date = today()
+  const date = (dateURL) ? dateURL : today();
+
+  const [reservations, setReservations] = useState([])
+  const [error, setError] = useState(null)
+
+  useEffect(loadReservations, [date]) 
+
+  function loadReservations() {
+    const controller = new AbortController();
+
+    setError(null);
+    listReservations({date}, controller.signal)
+      .then(setReservations)
+      .catch(setError);
+
+    return () => controller.abort();
   }
-  return (
+  
+  return (error) ? (<ErrorAlert error={error} />) : (
     <Switch>
       <Route exact={true} path="/">
         <Redirect to={"/dashboard"} />
@@ -30,10 +45,13 @@ function Routes() {
         <Redirect to={"/dashboard"} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard date={date}/>
+        <Dashboard date={date} reservations={reservations}/>
       </Route>
       <Route path="/reservations/new">
-        <ReservationForm />
+        <CreateReservation loadReservations={loadReservations}/>
+      </Route>
+      <Route path="/reservations/:reservationId/edit">
+        <EditReservation loadReservations={loadReservations}/>
       </Route>
       <Route>
         <NotFound />

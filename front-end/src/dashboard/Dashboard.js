@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom"
-import { listReservations } from "../utils/api";
-import ErrorAlert from "../layout/ErrorAlert";
-import useQuery from "../utils/useQuery";
-import { next, previous, today, formatAsDate } from "../utils/date-time";
+import { formatAsDate } from "../utils/date-time";
 
 /**
  * Defines the dashboard page.
@@ -11,43 +8,24 @@ import { next, previous, today, formatAsDate } from "../utils/date-time";
  *  the date for which the user wants to view reservations.
  * @returns {JSX.Element}
  */
-function Dashboard({ date }) {
+
+function Dashboard({ date, reservations }) {
   const history = useHistory()
-  // declare states and errors
-  const [reservations, setReservations] = useState([]);
-  const [error, setError] = useState(null);
-
-  // run loadDashboard every time the date changes
-  useEffect(loadDashboard, [date]);
-
-  function loadDashboard() {
-    const controller = new AbortController();
-
-    setError(null);
-    listReservations({date}, controller.signal)
-      .then(setReservations)
-      .catch(setError);
-
-    return () => controller.abort();
-  }
-
   // handle button clicks
   const handleClick = () => {
     history.push(`/dashboard?date=${date}`)
   }
-
   // format date for display
   const displayDate = formatAsDate(date);
-
-  return (
+  // display loading if no reservations
+  return !reservations ? (<h1>loading</h1>) : (
     <main>
       <h1>Dashboard</h1>
       <div className="d-md-flex align-items-center mb-3">
         <h4>Reservations for date</h4>
         <h4 className="ml-3">{displayDate}</h4>
       </div>
-      <ErrorAlert error={error} />
-      <p>{reservations ? JSON.stringify(reservations) : "loading"}</p>
+      <p>{JSON.stringify(reservations)}</p>
       <button name="prev" className="btn">Previous Day</button>
       <button name="today" className="btn" >Today</button>
       <button name="next" className="btn">Next Day</button>

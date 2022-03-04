@@ -16,14 +16,15 @@ const list = (date) => {
 const read = (reservationId) => {
   return knex(tableName)
   .select()
-  .where({ reservationId })
+  .where({ reservation_id: reservationId })
 }
 
 const create = (newReservation) => {
-  return knex(tableName).insert(newReservation).then(reservations => reservations[0]);
+  return knex(tableName).insert(newReservation, "*").returning("*")
 }
 
 module.exports = {
   list,
+  read,
   create
 };
