@@ -6,6 +6,7 @@ import { today } from "../utils/date-time"
 
 export default function ReservationForm({reservation, setReservation, handleSubmit}) {
   const history = useHistory()
+
   // define options for number of people
   const numberOfPeople = ["1", "2", "3", "4", "5", "6"];
   const peopleOptions = numberOfPeople.map((people) => (
@@ -17,8 +18,8 @@ export default function ReservationForm({reservation, setReservation, handleSubm
     ? setReservation({ ...reservation, [target.name]: Number(target.value) })
     : setReservation({ ...reservation, [target.name]: target.value })
   })
-console.log(reservation)
 
+  console.log(reservation)
   return (
     <div className="d-flex justify-content-center">
       <form className="form w-50 mt-5" onSubmit={handleSubmit}>
