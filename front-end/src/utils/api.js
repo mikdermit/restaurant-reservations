@@ -62,24 +62,53 @@ export async function listReservations(params, signal) {
   Object.entries(params).forEach(([key, value]) =>
     url.searchParams.append(key, value.toString())
   );
-  return await fetchJson(url, { headers, signal }, [])
+  return await fetchJson(url, { headers, signal }, {})
     .then(formatReservationDate)
     .then(formatReservationTime);
 }
 
 export async function readReservation(reservationId, signal) {
-  const url = `${API_BASE_URL}/reservations/${reservationId}`
+  const url = new URL(`${API_BASE_URL}/reservations/${reservationId}`)
   return await fetchJson(url, { signal }, {});
 }
 
-export async function createReservation(reservation, signal) {
+export async function createReservation(newReservation, signal) {
   const url = `${API_BASE_URL}/reservations`
-  console.log(API_BASE_URL)
   const options = {
     method: "POST",
     headers,
-    body: JSON.stringify({ data: reservation }),
+    body: JSON.stringify({ data: newReservation }),
     signal
   };
   return await fetchJson(url, options, {})
+}
+
+export async function updateReservation(updatedReservation, signal) {
+  const reservationId = updatedReservation.reservation_id
+  const url = `${API_BASE_URL}/reservations/${reservationId}`
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(updatedReservation),
+    signal
+  };
+  return await fetchJson(url, options, [])
+}
+
+export async function updateStatus(reservationId, updatedStatus, signal) {
+  const url = new URL(`${API_BASE_URL}/reservations/${reservationId}/status`);
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({status: updatedStatus}),
+    signal
+  };
+  return await fetchJson(url, options, [])
+}
+
+export async function deleteReservation(reservationId, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservationId}`;
+  const options = { method: "DELETE", signal };
+  return await fetchJson(url, options)
+  
 }

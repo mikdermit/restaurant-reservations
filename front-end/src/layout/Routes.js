@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
-import { listReservations } from "../utils/api";
 import { today } from "../utils/date-time";
-import useQuery from "../utils/useQuery"
 import ErrorAlert from "../layout/ErrorAlert";
 import NotFound from "./NotFound";
 import Dashboard from "../dashboard/Dashboard";
@@ -17,24 +15,9 @@ import EditReservation from "../reservations/EditReservation"
  * @returns {JSX.Element}
  */
 function Routes() {
-  const dateURL = useQuery().get("date");
-  const date = (dateURL) ? dateURL : today();
-
-  const [reservations, setReservations] = useState([])
-  const [error, setError] = useState(null)
-
-  useEffect(loadReservations, [date]) 
-
-  function loadReservations() {
-    const controller = new AbortController();
-
-    setError(null);
-    listReservations({date}, controller.signal)
-      .then(setReservations)
-      .catch(setError);
-
-    return () => controller.abort();
-  }
+  const date = today();
+const [error, setError] = useState(null)
+  
   
   return (error) ? (<ErrorAlert error={error} />) : (
     <Switch>
@@ -45,13 +28,13 @@ function Routes() {
         <Redirect to={"/dashboard"} />
       </Route>
       <Route path="/dashboard">
-        <Dashboard date={date} reservations={reservations}/>
+        <Dashboard date={date} setError={setError} />
       </Route>
       <Route path="/reservations/new">
-        <CreateReservation loadReservations={loadReservations}/>
+        <CreateReservation />
       </Route>
       <Route path="/reservations/:reservationId/edit">
-        <EditReservation loadReservations={loadReservations}/>
+        <EditReservation />
       </Route>
       <Route>
         <NotFound />
