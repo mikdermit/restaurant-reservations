@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { today } from "../utils/date-time";
+import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import NotFound from "./NotFound";
 import Dashboard from "../dashboard/Dashboard";
@@ -16,31 +17,18 @@ import EditReservation from "../reservations/EditReservation"
  */
 function Routes() {
   const date = today();
-const [error, setError] = useState(null)
-  
+  const [error, setError] = useState(null)
   
   return (error) ? (<ErrorAlert error={error} />) : (
     <Switch>
-      <Route exact={true} path="/">
-        <Redirect to={"/dashboard"} />
-      </Route>
-      <Route exact={true} path="/reservations">
-        <Redirect to={"/dashboard"} />
-      </Route>
-      <Route path="/dashboard">
-        <Dashboard date={date} setError={setError} />
-      </Route>
-      <Route path="/reservations/new">
-        <CreateReservation />
-      </Route>
-      <Route path="/reservations/:reservationId/edit">
-        <EditReservation />
-      </Route>
-      <Route>
-        <NotFound />
-      </Route>
+      <Redirect from="/" to="/dashboard" />
+      <Redirect from="/reservations" to="/dashboard" />
+      <Route path="/dashboard" render={() => <Dashboard date={date} /> }/>
+      <Route path="/reservations/new" component={CreateReservation} />
+      <Route path="/reservations/:reservationId/edit" component={EditReservation} />
+      <Route component={NotFound} />
     </Switch>
   );
-}
+}cd
 
 export default Routes;
