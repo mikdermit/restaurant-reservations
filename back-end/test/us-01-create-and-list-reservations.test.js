@@ -339,7 +339,7 @@ describe("US-01 - Create and list reservations", () => {
         last_name: "last",
         mobile_number: "800-555-1212",
         reservation_date: "2025-01-01",
-        reservation_time: "15:30",
+        reservation_time: "17:30",
         people: 2,
       };
 

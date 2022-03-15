@@ -29,6 +29,6 @@ function Routes() {
       <Route component={NotFound} />
     </Switch>
   );
-}cd
+}
 
 export default Routes;

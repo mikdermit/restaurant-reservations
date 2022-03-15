@@ -50,39 +50,9 @@ function Dashboard({ date }) {
   const displayDate = formatAsDate(date);
 
   // display loading if no reservations
-  return !reservations ? (
-    <LoadingMessage />
-  ) : (
+  return (
     <main>
-      <div className="d-flex flex-column align-items-center">
-        <h1>Dashboard</h1>
-        <div className="d-flex align-items-center mb-3">
-          <h4>Reservations for date:</h4>
-          <h4 className="ml-2">{displayDate}</h4>
-        </div>
-        <ReservationList reservations={reservations} />
-
-        <div className="d-flex justify-content-around w-75">
-          <button
-            onClick={() => handleClick(previous(date))}
-            className="btn btn-secondary w-25"
-          >
-            Previous Day
-          </button>
-          <button
-            onClick={() => handleClick(today())}
-            className="btn btn-primary w-25"
-          >
-            Today
-          </button>
-          <button
-            onClick={() => handleClick(next(date))}
-            className="btn btn-secondary w-25"
-          >
-            Next Day
-          </button>
-        </div>
-      </div>
+      <h1>hello</h1>
     </main>
   );
 }

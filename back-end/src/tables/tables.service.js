@@ -35,6 +35,7 @@ function update(updatedTable) {
         .update(updatedTable, "*")
 }
 
+
 function clear(table_id) {
     return knex("tables")
         .where("table_id", table_id)
