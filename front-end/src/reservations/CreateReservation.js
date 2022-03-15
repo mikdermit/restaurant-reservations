@@ -32,6 +32,7 @@ export default function CreateReservation() {
   return (
     <div className="d-flex flex-column align-items-center">
       <ReservationForm
+      type="Create"
         reservation={reservation}
         setReservation={setReservation}
         handleSubmit={handleSubmit}

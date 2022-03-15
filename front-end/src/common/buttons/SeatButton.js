@@ -10,6 +10,6 @@ export default function SeatButton({ reservation }) {
   };
 
   return displayButton ? (
-    <button className="btn btn-primary align-items-lg-start mb-2">Seat</button>
+    <button className="btn btn-primary align-items-lg-start">Seat</button>
   ) : null;
 }

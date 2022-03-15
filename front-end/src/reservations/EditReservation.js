@@ -44,6 +44,7 @@ export default function EditReservation({ setError }) {
         <CancelButton reservation={reservation} />
       </div>
       <ReservationForm
+      type="Edit"
         reservation={reservation}
         setReservation={setReservation}
         handleSubmit={handleSubmit}

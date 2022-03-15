@@ -21,8 +21,8 @@ function Routes() {
   
   return (error) ? (<ErrorAlert error={error} />) : (
     <Switch>
-      <Redirect from="/" to="/dashboard" />
-      <Redirect from="/reservations" to="/dashboard" />
+      {/* <Redirect from="/" to="/dashboard" />
+      <Redirect from="/reservations" to="/dashboard" /> */}
       <Route path="/dashboard" render={() => <Dashboard date={date} /> }/>
       <Route path="/reservations/new" component={CreateReservation} />
       <Route path="/reservations/:reservationId/edit" component={EditReservation} />
