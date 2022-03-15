@@ -41,7 +41,7 @@ export default function EditReservation({ setError }) {
   ) : (
     <div className="d-flex flex-column align-items-center">
       <div className="d-flex justify-content-between w-50 my-3">
-        <CancelButton reservationId={reservationId} />
+        <CancelButton reservation={reservation} />
       </div>
       <ReservationForm
         reservation={reservation}
