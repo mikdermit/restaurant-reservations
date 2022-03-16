@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { readReservation, updateReservation } from "../utils/api";
 import LoadingMessage from "../layout/LoadingMessage";
-import CancelButton from "../common/buttons/CancelButton";
 import ReservationForm from "./ReservationForm";
+import ErrorAlert from "../layout/ErrorAlert"
 
-export default function EditReservation({ setError }) {
+export default function EditReservation() {
   const history = useHistory();
 
   // get reservationId from URL
@@ -13,6 +13,7 @@ export default function EditReservation({ setError }) {
 
   // declare states and errors
   const [reservation, setReservation] = useState({});
+  const [error, setError] = useState(null)
 
   // when reservationId changes:
   useEffect(() => {
@@ -26,23 +27,21 @@ export default function EditReservation({ setError }) {
   }, [reservationId]);
 
   // on submit:
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const date = reservation.reservation_date;
     // update reservation
-    updateReservation(reservation);
+    updateReservation(reservation)
     // redirect to reservation date's dashboard
-    history.push(`/dashboard/?date=${date}`);
+    .then(() => history.push(`/dashboard/?date=${date}`))
+    .catch(setError)
   };
 
   // if no reservation return loading
-  return !reservation ? (
-    <LoadingMessage />
-  ) : (
+  return (
+  <>
+    {error ? (<ErrorAlert error={error} />) : null}
     <div className="d-flex flex-column align-items-center">
-      <div className="d-flex justify-content-between w-50 my-3">
-        <CancelButton reservation={reservation} />
-      </div>
       <ReservationForm
       type="Edit"
         reservation={reservation}
@@ -50,5 +49,6 @@ export default function EditReservation({ setError }) {
         handleSubmit={handleSubmit}
       />
     </div>
+    </>
   );
 }

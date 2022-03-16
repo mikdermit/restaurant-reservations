@@ -10,7 +10,7 @@ async function list(req, res) {
   } else {
     const data = await service.list(date);
     res.json({
-      data
+      data,
     });
   }
 }
@@ -24,7 +24,7 @@ async function create(req, res, next) {
   res.status(201).json({ data });
 }
 
-async function update(req, res, next) {
+async function updateReservation(req, res, next) {
   const { reservation_id } = res.locals.reservation;
   const updateData = { ...req.body.data, reservation_id };
   const data = await service.updateReservation(updateData);
@@ -47,7 +47,7 @@ async function reservationExists(req, res, next) {
   }
   next({
     status: 404,
-    message: `Reservation ${reservation_id} does not exist.`
+    message: `Reservation ${reservation_id} does not exist.`,
   });
 }
 
@@ -60,13 +60,13 @@ const isFieldsValid = (req, res, next) => {
     "mobile_number",
     "reservation_date",
     "reservation_time",
-    "people"
+    "people",
   ];
 
   if (!reservation)
     return next({ status: 400, message: "Request must have data." });
 
-  requiredFields.forEach(field => {
+  requiredFields.forEach((field) => {
     if (!reservation[field])
       return next({ status: 400, message: `${field} is required.` });
   });
@@ -86,7 +86,7 @@ const isDateTimeValid = (req, res, next) => {
   else if (reservation.getUTCDay() === 2)
     next({
       status: 400,
-      message: `Your reservation cannot be on a Tuesday (closed).`
+      message: `Your reservation cannot be on a Tuesday (closed).`,
     });
   else if (reservation < now)
     next({ status: 400, message: `Your reservation must be in the future.` });
@@ -98,7 +98,7 @@ const isDateTimeValid = (req, res, next) => {
   )
     next({
       status: 400,
-      message: `Your reservation time must be between 10:30 AM and 9:30 PM`
+      message: `Your reservation time must be between 10:30 AM and 9:30 PM`,
     });
   next();
 };
@@ -108,7 +108,7 @@ const isPeopleValid = (req, res, next) => {
   if (typeof people !== "number" || people < 1)
     return next({
       status: 400,
-      message: "'people' must be a number greater than 0."
+      message: "'people' must be a number greater than 0.",
     });
 
   next();
@@ -121,22 +121,22 @@ const isStatusValid = (req, res, next) => {
 
   next({
     status: 400,
-    message: `The status cannot be ${status}, and must be "seated", "booked", "finished", or "cancelled".`
+    message: `The status cannot be ${status}, and must be "seated", "booked", "finished", or "cancelled".`,
   });
 };
 
 const isStatusBooked = (req, res, next) => {
-  const newReservation = req.body.data;
-  if (
-    newReservation.status === "seated" ||
-    newReservation.status === "finished"
-  )
-    return next({
-      status: 400,
-      message: `Status cannot be '${newReservation.status}'.  Must be 'booked' `
-    });
+  const invalidStatus = ["seated", "finished"];
+  const { status } = res.locals.reservation
+    ? res.locals.reservation
+    : req.body.data;
 
-  next();
+  if (!invalidStatus.includes(status)) return next();
+
+  next({
+    status: 400,
+    message: `The status cannot be ${status}, and must be "booked".`,
+  });
 };
 
 module.exports = {
@@ -146,20 +146,21 @@ module.exports = {
     isDateTimeValid,
     isPeopleValid,
     isStatusBooked,
-    asyncErrorBoundary(create)
+    asyncErrorBoundary(create),
   ],
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
-  update: [
+  updateReservation: [
     isFieldsValid,
     isDateTimeValid,
     isPeopleValid,
-    isStatusBooked,
     asyncErrorBoundary(reservationExists),
-    asyncErrorBoundary(update)
+    isStatusBooked,
+    asyncErrorBoundary(updateReservation),
   ],
   updateStatus: [
     isStatusValid,
     asyncErrorBoundary(reservationExists),
-    asyncErrorBoundary(updateStatus)
-  ]
+    isStatusBooked,
+    asyncErrorBoundary(updateStatus),
+  ],
 };

@@ -100,7 +100,7 @@ export async function updateStatus(reservationId, updatedStatus, signal) {
   const options = {
     method: "PUT",
     headers,
-    body: JSON.stringify({status: updatedStatus}),
+    body: JSON.stringify({data: {status: updatedStatus}}),
     signal
   };
   return await fetchJson(url, options, [])

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createReservation } from "../utils/api";
 import ReservationForm from "./ReservationForm";
+import ErrorAlert from "../layout/ErrorAlert"
 
 export default function CreateReservation() {
   const history = useHistory();
@@ -21,15 +22,18 @@ export default function CreateReservation() {
   const [error, setError] = useState(null);
 
   // on submit:
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // create reservation
-    createReservation(reservation);
+    createReservation(reservation)
     // redirect to reservation date's dashboard
-    history.push(`/dashboard?date=${reservation.reservation_date}`);
+     .then(() => history.push(`/dashboard?date=${reservation.reservation_date}`))
+    .catch(setError)
   };
 
   return (
+    <>
+    {error ? (<ErrorAlert error={error} />) : null}
     <div className="d-flex flex-column align-items-center">
       <ReservationForm
       type="Create"
@@ -38,5 +42,6 @@ export default function CreateReservation() {
         handleSubmit={handleSubmit}
       />
     </div>
+    </>
   );
 }

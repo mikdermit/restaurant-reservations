@@ -4,7 +4,8 @@ import { listReservations } from "../utils/api";
 import { next, previous, today, formatAsDate } from "../utils/date-time";
 import useQuery from "../utils/useQuery";
 import LoadingMessage from "../layout/LoadingMessage";
-import ReservationList from "../reservations/ReservationList";
+import ReservationTable from "../reservations/ReservationTable";
+
 
 /**
  * Defines the dashboard page.
@@ -58,26 +59,9 @@ function Dashboard({ date }) {
           <h3>Reservations for date:</h3>
           <h3 className="ml-2">{displayDate}</h3>
         </div>
-        <table className="table table-striped text-center">
-          <thead className="thead-dark">
-            <tr>
-            <th className="col-sm-1">#</th>
-            <th className="col-sm-1"></th>
-            <th className="col-sm-1">Party</th>
-              <th className="col-sm-2">Name</th>
-              <th className="col-sm-2">Contact</th>
-              <th className="col-sm-2">Date</th>
-              <th className="col-sm-2">Time</th>
-              <th className="col-sm-2">Status</th>
-              <th className="col-sm-1"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <ReservationList reservations={reservations}/>
-          </tbody>
-          </table>
-
-        <div className="d-flex justify-content-around w-75">
+        <ReservationTable reservations={reservations}/>
+        {reservations.length === 0 ? <h6>No reservations found</h6> : null}
+        <div className="d-flex justify-content-around w-75 my-3">
           <button
             onClick={() => handleClick(previous(date))}
             className="btn btn-secondary w-25"

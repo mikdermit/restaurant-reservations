@@ -62,12 +62,10 @@ describe("US-06 - Reservation status", () => {
           people: 2,
           status,
         };
-
         const response = await request(app)
           .post("/reservations")
           .set("Accept", "application/json")
           .send({ data });
-
         expect(response.body.error).toContain(status);
         expect(response.status).toBe(400);
       }
@@ -113,13 +111,12 @@ describe("US-06 - Reservation status", () => {
       reservationOne.status = "finished";
       await knex("reservations")
         .where({ reservation_id: reservationOne.reservation_id })
-        .update(reservationOne, "*");
+        .update(reservationOne, "*")
 
       const response = await request(app)
         .put(`/reservations/${reservationOne.reservation_id}/status`)
         .set("Accept", "application/json")
         .send({ data: { status: "seated" } });
-
       expect(response.body.error).toContain("finished");
       expect(response.status).toBe(400);
     });

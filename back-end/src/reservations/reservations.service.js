@@ -11,9 +11,7 @@ function list(date) {
   }
   return knex(tableName)
     .select()
-    .whereNot({ status: "finished" })
     .orderBy("reservation_time");
-  
 }
 
 function read(reservation_id) {

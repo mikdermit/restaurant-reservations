@@ -7,6 +7,7 @@ import NotFound from "./NotFound";
 import Dashboard from "../dashboard/Dashboard";
 import CreateReservation from "../reservations/CreateReservation"
 import EditReservation from "../reservations/EditReservation"
+import SearchReservation from "../reservations/SearchReservation"
 
 /**
  * Defines all the routes for the application.
@@ -24,8 +25,9 @@ function Routes() {
       {/* <Redirect from="/" to="/dashboard" />
       <Redirect from="/reservations" to="/dashboard" /> */}
       <Route path="/dashboard" render={() => <Dashboard date={date} /> }/>
-      <Route path="/reservations/new" component={CreateReservation} />
+      <Route path="/reservations/new" component={CreateReservation} setError={setError} />
       <Route path="/reservations/:reservationId/edit" component={EditReservation} />
+      <Route path="/search" component={SearchReservation} />
       <Route component={NotFound} />
     </Switch>
   );

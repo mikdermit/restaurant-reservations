@@ -1,7 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import CancelButton from "../common/buttons/CancelButton"
 
 export default function ReservationForm({
+  type,
   reservation,
   setReservation,
   handleSubmit,
@@ -9,7 +11,7 @@ export default function ReservationForm({
   const history = useHistory();
 
   // define options for number of people
-  const numberOfPeople = ["0", "1", "2", "3", "4", "5", "6"];
+  const numberOfPeople = ["1", "2", "3", "4", "5", "6"];
   const peopleOptions = numberOfPeople.map((people) => (
     <option>{people}</option>
   ));
@@ -23,8 +25,12 @@ export default function ReservationForm({
   };
 
   return (
+    <div className="d-flex flex-column align-items-center">
+
+        <h2 className="my-3">{type} Reservation</h2>
+
+    <div className="card p-4 mt-2">
     <form
-      className="form justify-content-center m-auto w-50 mt-5"
       onSubmit={handleSubmit}
     >
       <div className="form-row">
@@ -114,5 +120,8 @@ export default function ReservationForm({
         </button>
       </div>
     </form>
+    </div>
+    <CancelButton />
+    </div>
   );
 }
