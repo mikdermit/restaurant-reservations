@@ -5,9 +5,9 @@ import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import NotFound from "./NotFound";
 import Dashboard from "../dashboard/Dashboard";
-import CreateReservation from "../reservations/CreateReservation"
-import EditReservation from "../reservations/EditReservation"
-import SearchReservation from "../reservations/SearchReservation"
+import CreateReservation from "../reservations/CreateReservation";
+import EditReservation from "../reservations/EditReservation";
+import SearchReservation from "../reservations/SearchReservation";
 
 /**
  * Defines all the routes for the application.
@@ -18,15 +18,29 @@ import SearchReservation from "../reservations/SearchReservation"
  */
 function Routes() {
   const date = today();
-  const [error, setError] = useState(null)
-  
-  return (error) ? (<ErrorAlert error={error} />) : (
+  const [error, setError] = useState(null);
+
+  return error ? (
+    <ErrorAlert error={error} />
+  ) : (
     <Switch>
-      {/* <Redirect from="/" to="/dashboard" />
-      <Redirect from="/reservations" to="/dashboard" /> */}
-      <Route path="/dashboard" render={() => <Dashboard date={date} /> }/>
-      <Route path="/reservations/new" component={CreateReservation} setError={setError} />
-      <Route path="/reservations/:reservationId/edit" component={EditReservation} />
+      <Route exact={true} path="/">
+        <Redirect to={"/dashboard"} />
+      </Route>
+      <Route exact={true} path="/reservations">
+        <Redirect to={"/dashboard"} />
+      </Route>
+      <Route path="/dashboard">
+        <Dashboard date={date} />
+      </Route>
+      <Route
+        path="/reservations/new"
+        component={CreateReservation}
+      />
+      <Route
+        path="/reservations/:reservationId/edit"
+        component={EditReservation}
+      />
       <Route path="/search" component={SearchReservation} />
       <Route component={NotFound} />
     </Switch>
