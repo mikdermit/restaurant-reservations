@@ -5,7 +5,7 @@
 import formatReservationDate from "./format-reservation-date";
 import formatReservationTime from "./format-reservation-date";
 
-const API_BASE_URL = process.env.NODE_ENV === 'production' ? process.env.API_BASE_URL : "http://localhost:5000";
+const { API_BASE_URL = "https://restaurant-server-bm.herokuapp.com" } = process.env
 
 /**
  * Defines the default headers for these functions to work with `json-server`
