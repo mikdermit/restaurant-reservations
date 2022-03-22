@@ -1,5 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import SubmitButton from "../../common/buttons/SubmitButton"
+import BackButton from "../../common/buttons/BackButton"
 
 export default function ReservationForm({
   type,
@@ -18,7 +20,7 @@ export default function ReservationForm({
   // on change:
   const handleChange = ({ target }) => {
     // replace current value with input
-    target.name === "people" && target.value >= 1
+    target.name === "people"
       ? setReservation({ ...reservation, [target.name]: Number(target.value) })
       : setReservation({ ...reservation, [target.name]: target.value });
   };
@@ -106,13 +108,11 @@ export default function ReservationForm({
         </div>
       </div>
       <div className="d-flex justify-content-center">
-        <button type="submit" className="btn btn-primary w-75">
-          Submit
-        </button>
+        <SubmitButton />
       </div>
     </form>
     </div>
-    <button type="button" onClick={() => history.goBack()}>Cancel</button>
+    <BackButton />
     </div>
   );
 }

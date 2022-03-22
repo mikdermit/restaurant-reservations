@@ -1,11 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
 // import Edit from "../images/edit.png";
 import ReservationRow from "./ReservationRow"
 
 
-export default function ReservationTable({ reservations }) {
+export default function ReservationTable({ reservations, tables }) {
   // const handleClick = (target) => {
   //   reservations.find((reservation) => {
   //     if (reservation.reservation_id === target.reservation_id) {
@@ -13,9 +11,9 @@ export default function ReservationTable({ reservations }) {
   //     }
   //   });
   // };
-  const reservationList = reservations.map(reservation => (<ReservationRow reservation={reservation} />))
+  const reservationList = reservations.map(reservation => (<ReservationRow reservation={reservation} tables={tables} />))
   return (
-    <table className="table table-striped text-center">
+    <table className="table table-striped border border-dark text-center">
       <thead className="thead-dark">
         <tr>
           <th className="col-sm-1">Status</th>

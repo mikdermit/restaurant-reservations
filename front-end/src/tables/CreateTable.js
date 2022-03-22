@@ -1,47 +1,39 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { createReservation } from "../utils/api";
+import { createTable } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
-import ReservationForm from "../common/forms/ReservationForm";
-import { today } from "../utils/date-time";
+import TableForm from "../common/forms/TableForm";
 
-export default function CreateReservation() {
+export default function CreateTable() {
   const history = useHistory();
-  const date = today()
   // define default form state
   const initialFormState = {
-    first_name: "",
-    last_name: "",
-    mobile_number: "",
-    reservation_date: date,
-    reservation_time: "10:30",
-    people: 0,
+    table_name: "",
+    capacity: 0,
   };
   // declare states and errors
-  const [reservation, setReservation] = useState({ ...initialFormState });
+  const [table, setTable] = useState({ ...initialFormState });
   const [error, setError] = useState(null);
   // on submit:
   const handleSubmit = async (event) => {
     event.preventDefault();
     const controller = new AbortController();
     // create reservation
-    createReservation(reservation, controller.signal)
+    createTable(table, controller.signal)
       // redirect to reservation date's dashboard
-      .then(() =>
-        history.push(`/dashboard?date=${reservation.reservation_date}`)
-      )
+      .then(() => history.push(`/dashboard`))
       .catch(setError);
-      return () => controller.abort();
+    return () => controller.abort();
   };
   // display error if any
   return (
     <>
       {error ? <ErrorAlert error={error} /> : null}
       <div className="d-flex flex-column align-items-center">
-        <ReservationForm
+        <TableForm
           type="Create"
-          reservation={reservation}
-          setReservation={setReservation}
+          table={table}
+          setTable={setTable}
           handleSubmit={handleSubmit}
         />
       </div>

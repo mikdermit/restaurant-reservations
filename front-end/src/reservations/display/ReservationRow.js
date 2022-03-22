@@ -3,17 +3,17 @@ import SeatButton from "../../common/buttons/SeatButton";
 import CancelReservationButton from "../../common/buttons/CancelReservationButton";
 import EditButton from "../../common/buttons/EditButton";
 
-export default function ReservationRow({ reservation }) {
+export default function ReservationRow({ reservation, tables }) {
   const status = reservation.status === "booked" ? true : false;
   return (
     <tr>
       <td
         className={`align-middle ${
-          reservation.status === "cancelled"
-            ? "text-danger"
+          status
+            ? "text-success"
             : reservation.status === "seated"
             ? "text-warning"
-            : "text-success"
+            : "text-danger"
         }`}
       >
         {reservation.status}
@@ -35,7 +35,9 @@ export default function ReservationRow({ reservation }) {
         {status ? <EditButton reservation={reservation} /> : null}
       </td>
       <td className="align-middle">
-        {status ? <SeatButton reservation={reservation} /> : null}
+        {status ? (
+          <SeatButton reservation={reservation} tables={tables} />
+        ) : null}
       </td>
     </tr>
   );

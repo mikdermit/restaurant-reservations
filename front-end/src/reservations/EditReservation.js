@@ -31,7 +31,7 @@ export default function EditReservation() {
   // on submit:
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(null)
+    setError(null);
     const controller = new AbortController();
     const date = reservation.reservation_date;
     // update reservation
