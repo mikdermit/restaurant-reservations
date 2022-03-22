@@ -16,7 +16,7 @@ export default function TableRow({ table }) {
       </th>
       <td className="align-middle">{table.table_name}</td>
       <td className="align-middle">{table.capacity}</td>
-      <td className="align-middle">{status ? <FinishButton /> : null}</td>
+      <td className="align-middle">{status ? <FinishButton table={table}/> : null}</td>
     </tr>
   );
 }

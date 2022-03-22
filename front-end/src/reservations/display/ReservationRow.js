@@ -15,6 +15,7 @@ export default function ReservationRow({ reservation, tables }) {
             ? "text-warning"
             : "text-danger"
         }`}
+        data-reservation-id-status={reservation.reservation_id}
       >
         {reservation.status}
       </td>

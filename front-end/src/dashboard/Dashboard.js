@@ -17,12 +17,8 @@ export default function Dashboard() {
   const [reservations, setReservations] = useState([]);
   const [tables, setTables] = useState([]);
   const [error, setError] = useState(null);
-  // load reservations every time date changes
-  useEffect(loadReservations, [date]);
-  // load tables every page load
-  useEffect(loadTables, []);
-  // helper functions
-  function loadReservations() {
+  // load functions
+  const loadReservations = async () => {
     const controller = new AbortController();
     setError(null);
     // get reservations matching date
@@ -31,16 +27,19 @@ export default function Dashboard() {
       .catch(setError);
 
     return () => controller.abort();
-  }
-  function loadTables() {
+  };
+  const loadTables = async () => {
     const controller = new AbortController();
     setError(null);
     // get tables
     listTables(controller.signal).then(setTables).catch(setError);
 
     return () => controller.abort();
-  }
-
+  };
+  // load when date changes
+  useEffect(loadReservations, [date]);
+  // load every page load
+  useEffect(loadTables, []);
   // format date for display
   const displayDate = formatAsDate(date);
 
