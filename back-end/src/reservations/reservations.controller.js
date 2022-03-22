@@ -75,7 +75,7 @@ const isFieldsValid = (req, res, next) => {
 };
 
 const isDateTimeValid = (req, res, next) => {
-  const { data: { reservation_date, reservation_time } = {} } = req.body;
+  const { reservation_date, reservation_time } = req.body.data;
   const reservation = new Date(`${reservation_date}T${reservation_time}Z`);
   const now = new Date();
   const [hour, minute] = reservation_time.split(":");
@@ -92,14 +92,28 @@ const isDateTimeValid = (req, res, next) => {
     next({ status: 400, message: `Your reservation must be in the future.` });
   else if (
     hour < 10 ||
-    hour > 21 ||
-    (hour == 10 && minute < 30) ||
-    (hour == 21 && minute > 30)
+    (hour == 10 && minute < 30) 
   )
     next({
       status: 400,
-      message: `Your reservation time must be between 10:30 AM and 9:30 PM`,
+      message: `'reservation_time' invalid. Restaurant is not open until 10:30AM'`,
     });
+    else if (
+      hour > 22 ||
+      (hour === 22 && minute >= 30) 
+    )
+      next({
+        status: 400,
+        message: `'reservation_time' invalid. Restaurant is closed after 10:30PM'`,
+      });
+      else if (
+        hour > 21 ||
+        (hour == 21 && minute > 30) 
+      )
+        next({
+          status: 400,
+          message: `'reservation_time' invalid. Reservation must be made at least one hour prior to closing (10:30PM)'`,
+        });
   next();
 };
 

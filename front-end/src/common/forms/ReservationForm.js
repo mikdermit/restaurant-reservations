@@ -1,6 +1,5 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import CancelButton from "../common/buttons/CancelButton"
 
 export default function ReservationForm({
   type,
@@ -11,15 +10,15 @@ export default function ReservationForm({
   const history = useHistory();
 
   // define options for number of people
-  const numberOfPeople = ["1", "2", "3", "4", "5", "6"];
-  const peopleOptions = numberOfPeople.map((people) => (
-    <option>{people}</option>
-  ));
+  // const numberOfPeople = ["1", "2", "3", "4", "5", "6"];
+  // const peopleOptions = numberOfPeople.map((people) => (
+  //   <option>{people}</option>
+  // ));
 
   // on change:
   const handleChange = ({ target }) => {
     // replace current value with input
-    target.name === "people"
+    target.name === "people" && target.value >= 1
       ? setReservation({ ...reservation, [target.name]: Number(target.value) })
       : setReservation({ ...reservation, [target.name]: target.value });
   };
@@ -44,7 +43,6 @@ export default function ReservationForm({
             value={reservation.first_name}
             onChange={handleChange}
             placeholder="John"
-            required
           />
         </div>
         <div className="form-group col-4">
@@ -57,7 +55,6 @@ export default function ReservationForm({
             value={reservation.last_name}
             onChange={handleChange}
             placeholder="Smith"
-            required
           />
         </div>
         <div className="form-group col-4">
@@ -70,24 +67,20 @@ export default function ReservationForm({
             value={reservation.mobile_number}
             onChange={handleChange}
             placeholder="000-000-0000"
-            required
           />
         </div>
       </div>
       <div className="form-row">
         <div className="form-group col-4">
           <label htmlFor="people">Number of People</label>
-          <select
+          <input
+            type="number"
             className="form-control"
             id="people"
             name="people"
-            onChange={handleChange}
             value={reservation.people}
-            required
-          >
-            <option>Select</option>
-            {peopleOptions}
-          </select>
+            onChange={handleChange}
+          />
         </div>
         <div className="form-group col-4">
           <label htmlFor="reservation_date">Date</label>
@@ -98,7 +91,6 @@ export default function ReservationForm({
             name="reservation_date"
             value={reservation.reservation_date}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="form-group col-4">
@@ -110,18 +102,17 @@ export default function ReservationForm({
             name="reservation_time"
             value={reservation.reservation_time}
             onChange={handleChange}
-            required
           />
         </div>
       </div>
       <div className="d-flex justify-content-center">
         <button type="submit" className="btn btn-primary w-75">
-          Save
+          Submit
         </button>
       </div>
     </form>
     </div>
-    <CancelButton />
+    <button type="button" onClick={() => history.goBack()}>Cancel</button>
     </div>
   );
 }

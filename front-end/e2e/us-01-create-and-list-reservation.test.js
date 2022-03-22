@@ -28,6 +28,7 @@ describe("US-01 - Create and list reservations - E2E", () => {
   });
 
   afterAll(async () => {
+    jest.clearAllTimers()
     await browser.close();
   });
 

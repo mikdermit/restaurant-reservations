@@ -1,15 +1,20 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom"
+import { updateStatus } from "../../utils/api"
 
 export default function SeatButton({ reservation }) {
-  const displayButton = reservation.status === "booked" ? true : false;
-  const [toggle, setToggle] = useState({ ...displayButton });
+  const history = useHistory()
+  // const [toggle, setToggle] = useState({ ...displayButton });
 
   const handleClick = () => {
-    reservation.status = "seated";
-    setToggle(false);
+    const { reservation_id } = reservation;
+    // update status
+    updateStatus(reservation_id, "seated");
+    // refresh page
+    history.go();
   };
 
-  return displayButton ? (
-    <button className="btn btn-primary align-items-lg-start">Seat</button>
-  ) : null;
+return (
+    <button className="btn btn-primary align-items-lg-start m-1" onClick={handleClick}>Seat</button>
+)
 }
