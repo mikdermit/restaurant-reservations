@@ -4,6 +4,7 @@ const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 async function list(req, res) {
   const { date } = req.query;
   const { mobile_number } = req.query;
+  // if request has mobile number, search for results
   if (mobile_number) {
     const searchResults = await service.search(mobile_number);
     return res.json({ data: searchResults });
@@ -90,30 +91,21 @@ const isDateTimeValid = (req, res, next) => {
     });
   else if (reservation < now)
     next({ status: 400, message: `Your reservation must be in the future.` });
-  else if (
-    hour < 10 ||
-    (hour == 10 && minute < 30) 
-  )
+  else if (hour < 10 || (hour == 10 && minute < 30))
     next({
       status: 400,
       message: `'reservation_time' invalid. Restaurant is not open until 10:30AM'`,
     });
-    else if (
-      hour > 22 ||
-      (hour === 22 && minute >= 30) 
-    )
-      next({
-        status: 400,
-        message: `'reservation_time' invalid. Restaurant is closed after 10:30PM'`,
-      });
-      else if (
-        hour > 21 ||
-        (hour == 21 && minute > 30) 
-      )
-        next({
-          status: 400,
-          message: `'reservation_time' invalid. Reservation must be made at least one hour prior to closing (10:30PM)'`,
-        });
+  else if (hour > 22 || (hour === 22 && minute >= 30))
+    next({
+      status: 400,
+      message: `'reservation_time' invalid. Restaurant is closed after 10:30PM'`,
+    });
+  else if (hour > 21 || (hour == 21 && minute > 30))
+    next({
+      status: 400,
+      message: `'reservation_time' invalid. Reservation must be made at least one hour prior to closing (10:30PM)'`,
+    });
   next();
 };
 

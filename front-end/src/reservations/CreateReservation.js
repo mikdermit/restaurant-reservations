@@ -7,7 +7,7 @@ import { today } from "../utils/date-time";
 
 export default function CreateReservation() {
   const history = useHistory();
-  const date = today()
+  const date = today();
   // define default form state
   const initialFormState = {
     first_name: "",
@@ -20,7 +20,8 @@ export default function CreateReservation() {
   // declare states and errors
   const [reservation, setReservation] = useState({ ...initialFormState });
   const [error, setError] = useState(null);
-  // on submit:
+
+  // on submit do:
   const handleSubmit = async (event) => {
     event.preventDefault();
     const controller = new AbortController();
@@ -31,8 +32,9 @@ export default function CreateReservation() {
         history.push(`/dashboard?date=${reservation.reservation_date}`)
       )
       .catch(setError);
-      return () => controller.abort();
+    return () => controller.abort();
   };
+
   // display error if any
   return (
     <>

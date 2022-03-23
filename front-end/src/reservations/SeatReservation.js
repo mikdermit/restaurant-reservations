@@ -1,32 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { listTables, seatTable } from "../utils/api";
+import { seatTable, listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import SeatForm from "../common/forms/SeatForm";
 
 export default function SeatReservation() {
   const history = useHistory();
+  // get reservation id from url
   const { reservation_id } = useParams();
   // declare states and errors
-  const [tableId, setTableId] = useState("");
   const [tables, setTables] = useState([]);
+  const [tableId, setTableId] = useState("");
   const [error, setError] = useState(null);
-  // load tables function
-  const loadTables = async () => {
-    const controller = new AbortController();
-    setError(null);
-    // get tables
-    listTables(controller.signal).then(setTables).catch(setError);
 
+  // get tables when reservation_id changes
+  useEffect(() => {
+    const controller = new AbortController();
+    listTables(controller.signal).then(setTables).catch(setError);
     return () => controller.abort();
-  }
-  // load every page load
-  useEffect(loadTables, []);
-  // on submit:
+  }, [reservation_id]);
+
+  // on submit do:
   const handleSubmit = async (event) => {
     event.preventDefault();
     const controller = new AbortController();
-    console.log(tableId);
     // seat table
     seatTable(reservation_id, tableId, controller.signal)
       // redirect to dashboard
@@ -34,6 +31,7 @@ export default function SeatReservation() {
       .catch(setError);
     return () => controller.abort();
   };
+
   // display error if any
   return (
     <>

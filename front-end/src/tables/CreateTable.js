@@ -14,7 +14,8 @@ export default function CreateTable() {
   // declare states and errors
   const [table, setTable] = useState({ ...initialFormState });
   const [error, setError] = useState(null);
-  // on submit:
+
+  // on submit do:
   const handleSubmit = async (event) => {
     event.preventDefault();
     const controller = new AbortController();
@@ -25,6 +26,7 @@ export default function CreateTable() {
       .catch(setError);
     return () => controller.abort();
   };
+  
   // display error if any
   return (
     <>

@@ -11,8 +11,9 @@ export default function EditReservation() {
   // declare states and errors
   const [reservation, setReservation] = useState({});
   const [error, setError] = useState(null);
-  // load reservation function
- const loadReservation = async () => {
+
+  // get reservation when reservation_id changes
+  useEffect(() => {
     const controller = new AbortController();
     // get reservation
     readReservation(reservation_id, controller.signal)
@@ -27,10 +28,9 @@ export default function EditReservation() {
       )
       .catch(setError);
     return () => controller.abort();
-  }
-  // load when reservation_id changes
-  useEffect(loadReservation, [reservation_id])
-  // on submit:
+  }, [reservation_id]);
+
+  // on submit do:
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
@@ -43,6 +43,7 @@ export default function EditReservation() {
       .catch(setError);
     return () => controller.abort();
   };
+
   // display error if any
   return (
     <>

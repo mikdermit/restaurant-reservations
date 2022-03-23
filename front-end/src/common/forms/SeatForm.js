@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import SubmitButton from "../../common/buttons/SubmitButton";
 import BackButton from "../../common/buttons/BackButton";
 
@@ -9,8 +8,7 @@ export default function SeatForm({
   setTableId,
   handleSubmit,
 }) {
-  const history = useHistory();
-  // on change:
+  // on change do:
   const handleChange = ({ target }) => {
     // replace current value with input
     setTableId(target.value);
@@ -23,11 +21,11 @@ export default function SeatForm({
   ));
 
   return (
-    <div className="d-flex flex-column align-items-center w-25">
+    <div className="d-flex flex-column align-items-center w-50">
       <h2 className="my-3">Seat Reservation</h2>
       <div className="card p-4 mt-2">
         <form onSubmit={handleSubmit}>
-          <div className="form-row align-items-center m-auto">
+          <div className="form-row align-items-center justify-content-center">
             <label htmlFor="table_id" className="mr-3 my-auto">
               Table Number
             </label>
@@ -38,7 +36,7 @@ export default function SeatForm({
               value={tableId}
               onChange={handleChange}
             >
-              <option selected>Select</option>
+              <option defaultValue>Select</option>
               {tableOptions}
             </select>
           </div>

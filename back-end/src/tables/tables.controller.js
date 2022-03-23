@@ -12,43 +12,48 @@ async function read(req, res, next) {
 }
 
 async function create(req, res, next) {
-  const { reservation_id } = req.body.data;
-  if (reservation_id) {
-    const reservation = res.locals.reservation;
+  const table = req.body.data;
+  // if table already has reservation
+  if (table.reservation_id) {
+    // get reservation
+    const reservation = await reservationsService.read(table.reservation_id);
+    // change reservation status
     reservation.status = "seated";
-    req.body.data.status = "occupied";
-    await reservationsService.updateReservation(reservation, req.body.data);
+    // change table status
+    table.status = "occupied";
+    // update reservation status
+    await reservationsService.updateStatus(reservation);
   }
-  const data = await service.create(req.body.data);
+  const data = await service.create(table);
   res.status(201).json({ data });
 }
 
 async function update(req, res, next) {
   const { table, reservation } = res.locals;
+  // change table reservation_id
   table.reservation_id = reservation.reservation_id;
+  // change table status
   table.status = "occupied";
+  // change reservation status
   reservation.status = "seated";
 
   const updatedTable = await service.update(table);
-  const updatedRes = await reservationsService.updateReservation(
-    reservation,
-    table
-  );
+  const updatedRes = await reservationsService.updateStatus(reservation);
   res.json({ data: [updatedTable, updatedRes] });
 }
 
 async function clearTable(req, res, next) {
   const { table } = res.locals;
   const reservation = await reservationsService.read(table.reservation_id);
+  // change table reservation_id
   table.reservation_id = null;
+  // change table status
   table.status = "free";
+  // change reservation status
   reservation.status = "finished";
 
   const updatedTable = await service.update(table);
-  const updatedRes = await reservationsService.updateReservation(
-    reservation,
-    table
-  );
+  const updatedRes = await reservationsService.updateStatus(reservation);
   res.json({ data: [updatedTable, updatedRes] });
 }
 

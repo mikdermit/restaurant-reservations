@@ -4,11 +4,13 @@ import NotFound from "./NotFound";
 import Dashboard from "../dashboard/Dashboard";
 import CreateReservation from "../reservations/CreateReservation";
 import EditReservation from "../reservations/EditReservation";
-import SeatReservation from "../reservations/SeatReservation"
+import SeatReservation from "../reservations/SeatReservation";
 import SearchReservation from "../reservations/SearchReservation";
-import CreateTable from "../tables/CreateTable"
+import CreateTable from "../tables/CreateTable";
 
 function Routes() {
+
+  // display error if any
   return (
     <Switch>
       <Route exact={true} path="/">

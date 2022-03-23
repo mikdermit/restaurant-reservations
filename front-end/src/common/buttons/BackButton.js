@@ -3,8 +3,9 @@ import { useHistory } from "react-router-dom";
 
 export default function BackButton() {
   const history = useHistory();
-  // on click redirect to previous page
+  // on click do:
   const handleClick = () => {
+    // redirect to previous page
     history.goBack();
   };
 

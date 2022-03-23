@@ -4,8 +4,9 @@ import { today } from "../../utils/date-time";
 
 export default function TodayButton() {
   const history = useHistory();
-  // on click redirect to today
+  // on click do:
   const handleClick = () => {
+    // redirect to today
     history.push(`/dashboard?date=${today()}`);
   };
 

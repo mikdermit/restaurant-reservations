@@ -8,12 +8,14 @@ export default function SearchReservationsForm() {
   const [mobileNumber, setMobileNumber] = useState("");
   const [foundReservations, setFoundReservations] = useState([]);
   const [error, setError] = useState(null);
+
   // on change:
   const handleChange = (event) => {
     // replace current value with input
     setMobileNumber(event.target.value);
   };
-  // on submit:
+
+  // on submit do:
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError(null);
@@ -25,6 +27,7 @@ export default function SearchReservationsForm() {
     console.log(foundReservations);
     return () => controller.abort();
   };
+
   // display error if any
   return (
     <div className="d-flex flex-column align-items-center">

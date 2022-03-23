@@ -4,7 +4,7 @@ import { updateStatus } from "../../utils/api";
 
 export default function CancelReservationButton({ reservation }) {
   const history = useHistory();
-  // on cancel do:
+  // on click do:
   const handleCancel = async () => {
     const confirmCancel = window.confirm(
       "Do you want to cancel this reservation? This cannot be undone."

@@ -4,9 +4,10 @@ import { previous } from "../../utils/date-time";
 
 export default function PreviousDayButton({ date }) {
   const history = useHistory();
-  // on click redirect to previous day
+  // on click do:
   const handleClick = () => {
     const currentDate = date;
+    // redirect to previous day
     history.push(`/dashboard?date=${previous(currentDate)}`);
   };
   return (

@@ -3,17 +3,10 @@ import React from "react";
 import ReservationRow from "./ReservationRow"
 
 
-export default function ReservationTable({ reservations, tables }) {
-  // const handleClick = (target) => {
-  //   reservations.find((reservation) => {
-  //     if (reservation.reservation_id === target.reservation_id) {
-  //       // assign table
-  //     }
-  //   });
-  // };
-  const reservationList = reservations.map(reservation => (<ReservationRow reservation={reservation} tables={tables} />))
+export default function ReservationTable({ reservations }) {
+  const reservationList = reservations.map(reservation => (<ReservationRow key={reservation.reservation_id} reservation={reservation} />))
   return (
-    <table className="table table-striped border border-dark text-center">
+    <table className="table table-striped border text-center">
       <thead className="thead-dark">
         <tr>
           <th className="col-sm-1">Status</th>

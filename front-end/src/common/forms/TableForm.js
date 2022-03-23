@@ -1,7 +1,6 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import SubmitButton from "../../common/buttons/SubmitButton"
-import BackButton from "../../common/buttons/BackButton"
+import SubmitButton from "../../common/buttons/SubmitButton";
+import BackButton from "../../common/buttons/BackButton";
 
 export default function ReservationForm({
   type,
@@ -9,13 +8,13 @@ export default function ReservationForm({
   setTable,
   handleSubmit,
 }) {
-  const history = useHistory();
-  // on change:
+  // on change so:
   const handleChange = ({ target }) => {
-    // replace current value with input
     target.name === "capacity"
-      ? setTable({ ...table, [target.name]: Number(target.value) })
-      : setTable({ ...table, [target.name]: target.value });
+      ? // if capacity, convert to Number and replace current value with input
+        setTable({ ...table, [target.name]: Number(target.value) })
+      : // replace current value with input
+        setTable({ ...table, [target.name]: target.value });
   };
 
   return (
