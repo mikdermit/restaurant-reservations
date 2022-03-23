@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { createReservation } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import ReservationForm from "../common/forms/ReservationForm";
-import { today } from "../utils/date-time";
+import { today, formatAsPhoneNumber } from "../utils/date-time";
 
 export default function CreateReservation() {
   const history = useHistory();
@@ -25,6 +25,8 @@ export default function CreateReservation() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const controller = new AbortController();
+    // format phone number
+    reservation.mobile_number = formatAsPhoneNumber(reservation.mobile_number)
     // create reservation
     createReservation(reservation, controller.signal)
       // redirect to reservation date's dashboard

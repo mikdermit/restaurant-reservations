@@ -25,7 +25,7 @@ export default function ReservationForm({
 
   return (
     <div className="d-flex flex-column align-items-center">
-      <h2 className="my-3">{type} Reservation</h2>
+      <h3 className="my-3">{type} Reservation</h3>
 
       <div className="card p-4 mt-2">
         <form onSubmit={handleSubmit}>
@@ -55,7 +55,7 @@ export default function ReservationForm({
               />
             </div>
             <div className="form-group col-4">
-              <label htmlFor="mobile_number">Mobile Number</label>
+              <label htmlFor="mobile_number">Mobile #</label>
               <input
                 type="text"
                 className="form-control"
@@ -69,7 +69,7 @@ export default function ReservationForm({
           </div>
           <div className="form-row">
             <div className="form-group col-4">
-              <label htmlFor="people">Number of People</label>
+              <label htmlFor="people">People</label>
               <input
                 type="number"
                 className="form-control"

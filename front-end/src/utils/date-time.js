@@ -40,10 +40,13 @@ export function formatAsTime(timeString) {
   return timeString.match(timeFormat)[0];
 }
 
+export function formatAsPhoneNumber(mobile_number) {
+  return mobile_number.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3")
+}
 /**
  * Today's date as YYYY-MM-DD.
  * @returns {*}
- *  the today's date formatted as YYYY-MM-DD
+ *  the today's date formatted as YYYY-MM-DDcd 
  */
 export function today() {
   return asDateString(new Date());
