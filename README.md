@@ -24,10 +24,10 @@ Users can also create tables and assign capacity to reflect the tables in the re
 * run ```npm install```
 * run ```npm start``` to start the application
 ### Backend
-* cd into Thinkful/back-end
-* run npm install
-* run npm run reset to rollback, migrate and seed the database
-* run npm start to start the application
+* ```cd``` into Thinkful/back-end
+* run ```npm install```
+* run ```npm run``` reset to rollback, migrate and seed the database
+* run ```npm start``` to start the application
 
 # Features
 ## Creating A Reservation
@@ -62,9 +62,9 @@ Returns reservations for a particular date
 
 Required body:
 
-| Param | type |
-|-------|------|
-| date  | date |
+|    Param    |    Type    |
+|-------------|------------|
+| ```date```  | ```date``` |
 
 ## Reservations by Id
 GET /reservations/:reservation_id
@@ -73,9 +73,9 @@ Returns reservation for a particular id
 
 Required body:
 
-|     Param      |  type |
-|----------------|-------|
-| reservation_id | (int) |
+|        Param         |     Type    |
+|----------------------|-------------|
+| ```reservation_id``` | ```(int)``` |
 
 ## Create Reservation
 POST /reservations
@@ -84,14 +84,14 @@ Returns a new reservation
 
 Required body:
 
-|       Param      |  type |
-|------------------|-------|
-|     first_name   |  str  |
-|     last_name    |  str  |
-|       party      |  int  |
-| reservation_date |  date |
-| reservation_time |  time |
-|   mobile_number  |  str  |
+|          Param         |     Type    |
+|------------------------|-------------|
+|     ```first_name```   |  ```str```  |
+|     ```last_name```    |  ```str```  |
+|       ```party```      |  ```int```  |
+| ```reservation_date``` |  ```date``` |
+| ```reservation_time``` |  ```time``` |
+|   ```mobile_number```  |  ```str```  |
 
 ## Update Reservation
 PUT /reservations/:reservation_id
@@ -100,15 +100,15 @@ Modifies an existing reservation given an existing reservation Id
 
 Required body:
 
-|       Param      |  type |
-|------------------|-------|
-|  reservation_id  |  int  |
-|     first_name   |  str  |
-|     last_name    |  str  |
-|       party      |  int  |
-| reservation_date |  date |
-| reservation_time |  time |
-|   mobile_number  |  str  |
+|          Param         |     Type    |
+|------------------------|-------------|
+|  ```reservation_id```  |  ```int```  |
+|     ```first_name```   |  ```str```  |
+|     ```last_name```    |  ```str```  |
+|       ```party```      |  ```int```  |
+| ```reservation_date``` |  ```date``` |
+| ```reservation_time``` |  ```time``` |
+|   ```mobile_number```  |  ```str```  |
 
 ## Update Reservation Status
 Put /reservations/:reservation_id/status
@@ -117,10 +117,10 @@ Modifies an existing reservation's status
 
 Required body:
 
-|        Param       | type |
-|--------------------|------|
-|   reservation_id   | int  |
-| reservation_status | str  |
+|           Param          |    Type    |
+|--------------------------|------------|
+|   ```reservation_id```   | ```int```  |
+| ```reservation_status``` | ```str```  |
 
 ## List Tables
 GET /tables
@@ -133,10 +133,10 @@ Returns a new table
 
 Required body:
 
-|    Param   | type |
-|------------|------|
-| table_name | str  |
-|  capacity  | int  |
+|       Param      |    Type    |
+|------------------|------------|
+| ```table_name``` | ```str```  |
+|  ```capacity```  | ```int```  |
 
 ## Update Table Status
 PUT /tables/:table_id/seat
@@ -144,10 +144,10 @@ Sets table status to 'occupied' and ties a restaurant_id to it.
 
 Required body:
 
-|      Param     | type |
-|----------------|------|
-| reservation_id | int  |
-|    table_id    | int  |
+|         Param        |    Type    |
+|----------------------|------------|
+| ```reservation_id``` | ```int```  |
+|    ```table_id```    | ```int```  |
 
 ## Finish Table
 DELETE /tables/:table_id/seat
@@ -156,6 +156,6 @@ Sets the table status to free and the accompanying reservation status to finishe
 
 Required body:
 
-|   Param  | type |
-|----------|------|
-| table_id | int  |
+|      Param     |    Type    |
+|----------------|------------|
+| ```table_id``` | ```int```  |
