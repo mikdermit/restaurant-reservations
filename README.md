@@ -20,9 +20,9 @@ Users can also create tables and assign capacity to reflect the tables in the re
 
 ## Installation Instructions
 ### Frontend
-* cd into Thinkful/front-end
-* run npm install
-* run npm start to start the application
+* ```cd``` into Thinkful/front-end
+* run ```npm install```
+* run ```npm start``` to start the application
 ### Backend
 * cd into Thinkful/back-end
 * run npm install
