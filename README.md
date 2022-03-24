@@ -1,9 +1,6 @@
 # Capstone: Restaurant Reservation System
-<hr>
 
 [Live application URL](https://restaurant-client-bm.herokuapp.com/)
-
-<hr>
 
 ## Technology Used
 ### Frontend
@@ -16,14 +13,10 @@
 * NodeJS
 * Express
 
-<hr>
-
 ## Summary
 Periodic Tables is a restaurant schedule management application that allows a restaurant manager to create/document tables and reservations. It provides the ability to filter reservations by phone number, sort reservations by those that are booked, seated, and completed.
 
 Users can also create tables and assign capacity to reflect the tables in the restaurant.
-
-<hr>
 
 ## Installation Instructions
 ### Frontend
@@ -37,13 +30,10 @@ Users can also create tables and assign capacity to reflect the tables in the re
 * run npm start to start the application
 
 # Features
-<hr>
 ## Creating A Reservation
 Creating a reservations is done by clicking 'New Reservation' on the navigation bar. This requires the customer's first name, last name, reservation date, reservation time, quantity of guests, and phone number.
 
 ![Alt text](./images/create-reservation.PNG)
-
-<hr>
 
 ## Managing Reservations
 Managing reservations can be done via the dashboard.
@@ -54,24 +44,17 @@ The tables and their availability are listed in the list on the on the far right
 
 ![Alt text](./images/dashboard.PNG)
 
-<hr>
-
 ## Searching for a Specific Reservation
 Users can search for a particular reservation by the mobile number associated with the reservation. This can be done by clicking the 'Search' option in the left-hand navigation.
 
 ![Alt text](./images/search.PNG)
-
-<hr>
 
 ## Managing Tables
 Expanding the restaurant? Create new tables by selecting the 'New Table' option in the left-hand navigation.
 
 ![Alt text](./images/create-table.PNG)
 
-<hr>
-
 # API
-<hr>
 ## Reservations by Date
 GET /reservations?date=<reservation_date>
 
@@ -81,8 +64,6 @@ Required body:
 Param type
 date date
 
-<hr>
-
 ## Reservations by Id
 GET /reservations/:reservation_id
 
@@ -91,8 +72,6 @@ Returns reservation for a particular id
 Required body:
 Param type
 reservation_id (int)
-
-<hr>
 
 ## Create Reservation
 POST /reservations
@@ -107,8 +86,6 @@ party int
 reservation_date date
 reservation_time str
 mobile_number str
-
-<hr>
 
 ## Update Reservation
 PUT /reservations/:reservation_id
@@ -126,8 +103,6 @@ reservation_date date
 reservation_time str
 mobile_number str
 
-<hr>
-
 ## Update Reservation Status
 Put /reservations/:reservation_id/status
 
@@ -136,13 +111,9 @@ params type
 reservation_id (int)
 reservation_status str
 
-<hr>
-
 ## List Tables
 GET /tables
 Returns the available tables.
-
-<hr>
 
 ## Create Table
 POST /tables
@@ -154,8 +125,6 @@ Param type
 table_name str
 capacity int
 
-<hr>
-
 ## Update Table Status
 PUT /tables/:table_id/seat
 Sets table status to 'occupied' and ties a restaurant_id to it.
@@ -164,8 +133,6 @@ Required body:
 Param type
 reservation_id (int)
 table_id (int)
-
-<hr>
 
 ## Finish Table
 DELETE /tables/:table_id/seat
