@@ -1,41 +1,51 @@
-Capstone: Restaurant Reservation System
-Live application URL
-https://restaurant-client-bm.herokuapp.com/
+# Capstone: Restaurant Reservation System
+<hr>
 
-Technology Used
-Frontend
-ReactJS
-CSS
-Bootstrap
-JSX
-Backend
-Postgres (knex)
-NodeJS
-Express
+[Live application URL](https://restaurant-client-bm.herokuapp.com/)
 
-Summary
+<hr>
+
+## Technology Used
+### Frontend
+* ReactJS
+* CSS
+* Bootstrap
+* JSX
+### Backend
+* Postgres (knex)
+* NodeJS
+* Express
+
+<hr>
+
+## Summary
 Periodic Tables is a restaurant schedule management application that allows a restaurant manager to create/document tables and reservations. It provides the ability to filter reservations by phone number, sort reservations by those that are booked, seated, and completed.
 
 Users can also create tables and assign capacity to reflect the tables in the restaurant.
 
-Installation Instructions
-Frontend
-cd into Thinkful/front-end
-run npm install
-run npm start to start the application
-Backend
-cd into Thinkful/back-end
-run npm install
-run npm run reset to rollback, migrate and seed the database
-run npm start to start the application
+<hr>
 
-Features
-Creating A Reservation
+## Installation Instructions
+### Frontend
+* cd into Thinkful/front-end
+* run npm install
+* run npm start to start the application
+### Backend
+* cd into Thinkful/back-end
+* run npm install
+* run npm run reset to rollback, migrate and seed the database
+* run npm start to start the application
+
+# Features
+<hr>
+## Creating A Reservation
 Creating a reservations is done by clicking 'New Reservation' on the navigation bar. This requires the customer's first name, last name, reservation date, reservation time, quantity of guests, and phone number.
 
 ![Alt text](./images/create-reservation.PNG)
 
-Managing Reservations
+<hr>
+
+## Managing Reservations
 Managing reservations can be done via the dashboard.
 
 The dashboard by default will list the reservations for today. Use the previous and next buttons on the top right of the reservations table to look at reservations in the past or future.
@@ -44,19 +54,50 @@ The tables and their availability are listed in the list on the on the far right
 
 ![Alt text](./images/dashboard.PNG)
 
-Searching for a Specific Reservation
+<hr>
+
+## Searching for a Specific Reservation
 Users can search for a particular reservation by the mobile number associated with the reservation. This can be done by clicking the 'Search' option in the left-hand navigation.
 
 ![Alt text](./images/search.PNG)
 
-Managing Tables
+<hr>
+
+## Managing Tables
 Expanding the restaurant? Create new tables by selecting the 'New Table' option in the left-hand navigation.
 
 ![Alt text](./images/create-table.PNG)
 
-API
-Create Reservation
+<hr>
+
+# API
+<hr>
+## Reservations by Date
+GET /reservations?date=<reservation_date>
+
+Returns reservations for a particular date
+
+Required body:
+Param type
+date date
+
+<hr>
+
+## Reservations by Id
+GET /reservations/:reservation_id
+
+Returns reservation for a particular id
+
+Required body:
+Param type
+reservation_id (int)
+
+<hr>
+
+## Create Reservation
 POST /reservations
+
+Returns a new reservation
 
 Required body:
 Param type
@@ -66,17 +107,14 @@ party int
 reservation_date date
 reservation_time str
 mobile_number str
-Get Reservations by Date
-GET /reservations?date=<reservation_date>
 
-Returns reservations for a particular date
+<hr>
 
-Get Reservations by Id
-/reservations/:reservation_id
+## Update Reservation
+PUT /reservations/:reservation_id
 
-Available Methods
-GET - Returns a reservation given an existing reservation Id
-PUT - Modifies an existing reservation given an existing reservation Id
+Modifies an existing reservation given an existing reservation Id
+
 Required params:
 reservation_id (int)
 Required body:
@@ -87,34 +125,53 @@ party int
 reservation_date date
 reservation_time str
 mobile_number str
-Get Reservation Status
-GET /reservations/:reservation_id/status
 
-Returns a status of [ booked, seated, finished, cancelled ] for the particular reservation
+<hr>
 
-Get Tables
+## Update Reservation Status
+Put /reservations/:reservation_id/status
+
+Modifies an existing reservation's status
+params type
+reservation_id (int)
+reservation_status str
+
+<hr>
+
+## List Tables
 GET /tables
 Returns the available tables.
 
-Create Table
+<hr>
+
+## Create Table
 POST /tables
-Creates a table to be listed in the table list.
+
+Returns a new table
 
 Required body:
 Param type
 table_name str
 capacity int
-Update Table Status
+
+<hr>
+
+## Update Table Status
 PUT /tables/:table_id/seat
 Sets table status to 'occupied' and ties a restaurant_id to it.
 
 Required body:
 Param type
-reservation_id int
-Finish Table
+reservation_id (int)
+table_id (int)
+
+<hr>
+
+## Finish Table
 DELETE /tables/:table_id/seat
+
 Sets the table status to free and the accompanying reservation status to finished
 
 Required body:
 Param type
-reservation_id int
+table_id (int)
