@@ -21,7 +21,7 @@ export default function SeatForm({
   ));
 
   return (
-    <div className="d-flex flex-column align-items-center w-50">
+    <div className="d-flex flex-column align-items-center w-100">
       <h2 className="my-3">Seat Reservation</h2>
       <div className="card p-4 mt-2">
         <form onSubmit={handleSubmit}>
