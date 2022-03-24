@@ -56,33 +56,33 @@ Expanding the restaurant? Create new tables by selecting the 'New Table' option 
 
 # API
 ## Reservations by Date
-** GET /reservations?date=<reservation_date> ** 
+**GET /reservations?date=<reservation_date>** 
 
 Returns reservations for a particular date
 
-** Required body: **
+**Required body:**
 
 |    Param    |    Type    |
 |-------------|------------|
 | ```date```  | ```date``` |
 
 ## Reservations by Id
-** GET /reservations/:reservation_id **
+**GET /reservations/:reservation_id**
 
 Returns reservation for a particular id
 
-** Required body: **
+**Required body:**
 
 |        Param         |     Type    |
 |----------------------|-------------|
 | ```reservation_id``` | ```(int)``` |
 
 ## Create Reservation
-** POST /reservations **
+**POST /reservations**
 
 Returns a new reservation
 
-** Required body: **
+**Required body:**
 
 |          Param         |     Type    |
 |------------------------|-------------|
@@ -94,11 +94,11 @@ Returns a new reservation
 |   ```mobile_number```  |  ```str```  |
 
 ## Update Reservation
-** PUT /reservations/:reservation_id **
+**PUT /reservations/:reservation_id**
 
 Modifies an existing reservation given an existing reservation Id
 
-** Required body: **
+**Required body:**
 
 |          Param         |     Type    |
 |------------------------|-------------|
@@ -111,11 +111,11 @@ Modifies an existing reservation given an existing reservation Id
 |   ```mobile_number```  |  ```str```  |
 
 ## Update Reservation Status
-** Put /reservations/:reservation_id/status **
+**Put /reservations/:reservation_id/status**
 
 Modifies an existing reservation's status
 
-** Required body: **
+**Required body:**
 
 |           Param          |    Type    |
 |--------------------------|------------|
@@ -123,15 +123,15 @@ Modifies an existing reservation's status
 | ```reservation_status``` | ```str```  |
 
 ## List Tables
-** GET /tables **
+**GET /tables**
 Returns the available tables.
 
 ## Create Table
-** POST /tables **
+**POST /tables**
 
 Returns a new table
 
-** Required body: **
+**Required body:**
 
 |       Param      |    Type    |
 |------------------|------------|
@@ -139,10 +139,10 @@ Returns a new table
 |  ```capacity```  | ```int```  |
 
 ## Update Table Status
-** PUT /tables/:table_id/seat **
+**PUT /tables/:table_id/seat**
 Sets table status to 'occupied' and ties a restaurant_id to it.
 
-** Required body: **
+**Required body:**
 
 |         Param        |    Type    |
 |----------------------|------------|
@@ -150,11 +150,11 @@ Sets table status to 'occupied' and ties a restaurant_id to it.
 |    ```table_id```    | ```int```  |
 
 ## Finish Table
-** DELETE /tables/:table_id/seat **
+**DELETE /tables/:table_id/seat**
 
 Sets the table status to free and the accompanying reservation status to finished
 
-** Required body: **
+**Required body:**
 
 |      Param     |    Type    |
 |----------------|------------|
