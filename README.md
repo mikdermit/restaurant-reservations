@@ -61,8 +61,10 @@ GET /reservations?date=<reservation_date>
 Returns reservations for a particular date
 
 Required body:
-Param type
-date date
+
+| Param | type |
+|-------|------|
+| date  | date |
 
 ## Reservations by Id
 GET /reservations/:reservation_id
@@ -70,8 +72,10 @@ GET /reservations/:reservation_id
 Returns reservation for a particular id
 
 Required body:
-Param type
-reservation_id (int)
+
+|     Param      |  type |
+|----------------|-------|
+| reservation_id | (int) |
 
 ## Create Reservation
 POST /reservations
@@ -79,37 +83,44 @@ POST /reservations
 Returns a new reservation
 
 Required body:
-Param type
-first_name str
-last_name str
-party int
-reservation_date date
-reservation_time str
-mobile_number str
+
+|       Param      |  type |
+|------------------|-------|
+|     first_name   |  str  |
+|     last_name    |  str  |
+|       party      |  int  |
+| reservation_date |  date |
+| reservation_time |  time |
+|   mobile_number  |  str  |
 
 ## Update Reservation
 PUT /reservations/:reservation_id
 
 Modifies an existing reservation given an existing reservation Id
 
-Required params:
-reservation_id (int)
 Required body:
-Param type
-first_name str
-last_name str
-party int
-reservation_date date
-reservation_time str
-mobile_number str
+
+|       Param      |  type |
+|------------------|-------|
+|  reservation_id  |  int  |
+|     first_name   |  str  |
+|     last_name    |  str  |
+|       party      |  int  |
+| reservation_date |  date |
+| reservation_time |  time |
+|   mobile_number  |  str  |
 
 ## Update Reservation Status
 Put /reservations/:reservation_id/status
 
 Modifies an existing reservation's status
-params type
-reservation_id (int)
-reservation_status str
+
+Required body:
+
+|        Param       | type |
+|--------------------|------|
+|   reservation_id   | int  |
+| reservation_status | str  |
 
 ## List Tables
 GET /tables
@@ -121,18 +132,22 @@ POST /tables
 Returns a new table
 
 Required body:
-Param type
-table_name str
-capacity int
+
+|    Param   | type |
+|------------|------|
+| table_name | str  |
+|  capacity  | int  |
 
 ## Update Table Status
 PUT /tables/:table_id/seat
 Sets table status to 'occupied' and ties a restaurant_id to it.
 
 Required body:
-Param type
-reservation_id (int)
-table_id (int)
+
+|      Param     | type |
+|----------------|------|
+| reservation_id | int  |
+|    table_id    | int  |
 
 ## Finish Table
 DELETE /tables/:table_id/seat
@@ -140,5 +155,7 @@ DELETE /tables/:table_id/seat
 Sets the table status to free and the accompanying reservation status to finished
 
 Required body:
-Param type
-table_id (int)
+
+|   Param  | type |
+|----------|------|
+| table_id | int  |
