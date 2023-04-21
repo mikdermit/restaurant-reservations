@@ -41,7 +41,7 @@ export default function CreateReservation() {
   return (
     <>
       {error ? <ErrorAlert error={error} /> : null}
-      <div className="d-flex flex-column align-items-center">
+      <div className="d-flex flex-column align-items-center mt-5">
         <ReservationForm
           type="Create"
           reservation={reservation}

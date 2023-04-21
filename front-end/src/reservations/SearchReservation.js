@@ -30,9 +30,9 @@ export default function SearchReservationsForm() {
 
   // display error if any
   return (
-    <div className="d-flex flex-column align-items-center">
+    <div className="d-flex flex-column align-items-center mt-5">
       <h1>Search</h1>
-      <div className="input-group justify-content-center">
+      <div className="input-group justify-content-center mb-4">
         <input
           className="form-control col-9 my-3"
           type="text"

@@ -57,15 +57,20 @@ export default function Dashboard() {
   return (
     <main>
       {error ? <ErrorAlert error={error} /> : null}
-      <div className="d-flex flex-column align-items-center mt-2">
-        <h3>Dashboard</h3>
-        <TableTable tables={tables} finishTable={finishTable} />
-        <div className="d-flex align-items-center mb-3 mt-2">
-          <h4>Reservations for date:</h4>
-          <h4 className="ml-2">{displayDate}</h4>
+      <div className="d-flex flex-column align-items-center justify-content-around h-100">
+        <div className="d-flex flex-column align-items-center mt-5">
+          <h3>Dashboard</h3>
+          <TableTable tables={tables} finishTable={finishTable} />
         </div>
-        <ReservationTable reservations={reservations} />
-        {reservations.length === 0 ? <h6>No reservations found</h6> : null}
+
+        <div className="d-flex flex-column align-items-center">
+          <div className="d-flex align-items-center mb-3 mt-2">
+            <h4>Reservations for date:</h4>
+            <h4 className="ml-2">{displayDate}</h4>
+          </div>
+          <ReservationTable reservations={reservations} />
+          {reservations.length === 0 ? <h6>No reservations found</h6> : null}
+        </div>
         <div className="d-flex justify-content-around w-75 mt-5">
           <PreviousDayButton date={date} />
           <TodayButton />

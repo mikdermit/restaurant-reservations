@@ -1,0 +1,8 @@
+.side-bar {
+    background-color: #393a44;
+    max-width: 200px;
+  }
+
+  html, body, #root, main {
+    height: 100%
+  }
